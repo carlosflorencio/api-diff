@@ -68,6 +68,7 @@ export default async function runQuery(
 
   const headers: Record<string, string> = {
     'User-Agent': 'radar-compare-tool/unknown',
+    ...query.headers,
   };
 
   if (config.authStyle === 'header') {

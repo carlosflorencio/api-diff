@@ -15,6 +15,7 @@ type QueryReaderArgs = Pick<
   | 'method'
   | 'input_json_baseline'
   | 'input_queries'
+  | 'input_json'
   | 'endpoint'
   | 'input_params'
   | 'input_csv'
@@ -42,6 +43,7 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
       endpoint,
       params: queryString.parse(paramString) as Record<string, string>,
       method: argv.method,
+      headers: {}
     };
   }
 
@@ -123,6 +125,16 @@ function readQueriesHelper(argv: QueryReaderArgs): Query[] {
       .split('\n')
       .filter((line) => !!line)).map(lineToQuery);
   }
+
+  if (argv.input_json) {
+    return _.flatMap(argv.input_json, (input_json_file: string) => fs
+      .readFileSync(input_json_file)
+      .toString()).map(contents => 
+          JSON.parse(contents)
+          .map(q => ({method: argv.method, ...q}))
+      ).flat();
+  }
+
 
   return [];
 }

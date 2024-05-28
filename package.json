@@ -66,6 +66,7 @@
     "eslint-plugin-jsdoc": "^28.5.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
+    "prettier": "^3.2.5",
     "ts-node": "10.9.2",
     "typescript": "5.4.5"
   },
